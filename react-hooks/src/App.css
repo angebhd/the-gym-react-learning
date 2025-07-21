@@ -1,0 +1,13 @@
+
+.useReducer button{
+  background-color: rgba(83, 0, 160, 0.961);
+  color: white;
+  font-weight: 800;
+  padding: 3px;
+}
+
+
+.useReducer .error{
+  color: red;
+  font-weight: 800;
+}
