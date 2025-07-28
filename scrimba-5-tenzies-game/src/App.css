@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+body {
+    @apply bg-[#0b2434] p-5 h-[100vh] flex flex-col justify-center items-center
+}
+#root{
+    @apply h-full w-full min-h-[400px] min-w-[400px]
+}
