@@ -2,12 +2,13 @@
 
 
 body {
-  @apply bg-[#262626] text-[#D9D9D9] p-5 h-screen flex justify-center
+  @apply bg-[#262626] text-[#D9D9D9] p-5 h-screen
 }
 
 button.isCorrect{
-  @apply bg-[#10A95B]
+  @apply  bg-[#10A95B]
 }
+/*  */
 
 button.isWrong{
   @apply bg-[#EC5D49]
