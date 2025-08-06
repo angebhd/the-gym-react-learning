@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+
+
+body {
+  @apply bg-[#262626] text-[#D9D9D9] p-5 h-screen flex justify-center
+}
+
+button.isCorrect{
+  @apply bg-[#10A95B]
+}
+
+button.isWrong{
+  @apply bg-[#EC5D49]
+}
