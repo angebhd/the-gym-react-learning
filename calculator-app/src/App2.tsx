@@ -6,49 +6,49 @@ import Keys from './components/Keys'
 
 type arithmeticOperator = '+' | '-' | 'x' | '/';
 
-function App() {
-  const [result, setResult] = useState<number>(0);
+export default function App2() {
+  const [result, setResult] = useState<string>('');
   const [currentValue, setCurrentValue] = useState<number | string>(0);
-  const [firstNumber, setFirstNumber] = useState<number | null>(null);
-  const [secondNumber, setSecondNumber] = useState<number | null>(null);
+  const [firstNumber, setFirstNumber] = useState<string | null>(null);
+  const [secondNumber, setSecondNumber] = useState<string | null>(null);
 
   const operator = useRef<arithmeticOperator | "">('');
 
-  function calculate(a: number, b: number, operation: arithmeticOperator): number {
+  function calculate(a: string, b: string, operation: arithmeticOperator): string {
     switch (operation) {
       case "+":
-        return a + b;
+        return (Number(a) + Number(b)).toString();
         break;
       case "-":
-        return a - b;
+        return (Number(a) - Number(b)).toString();
         break;
       case "x":
-        return a * b;
+        return (Number(a) * Number(b)).toString();
         break;
       case "/":
-        return a / b;
+        return (Number(a) / Number(b)).toString();
         break;
       default:
-        return 0
+        return ''
     }
 
   }
 
-  function updateOneNumber(number: number, newDigit: number | "."): number {
-    return Number(number.toString() + newDigit.toString());
+  function updateOneNumber(number: string, newDigit: number | "."): string {
+    return number + newDigit.toString();
   }
   function chooseNumberToupdate(currentValue: number) {
     if (firstNumber === null) {
-      setFirstNumber(currentValue)
-      setResult(currentValue)
+      setFirstNumber(currentValue.toString())
+      setResult(currentValue.toString())
     } else if (operator.current === "") {
       const tempNumber = updateOneNumber(firstNumber, currentValue)
       setFirstNumber(tempNumber);
       setResult(tempNumber)
     } else {
       if (secondNumber === null) {
-        setSecondNumber(currentValue);
-        setResult(currentValue)
+        setSecondNumber(currentValue.toString());
+        setResult(currentValue.toString())
       } else {
         const tempNumber = updateOneNumber(secondNumber, currentValue)
         setSecondNumber(tempNumber);
@@ -61,28 +61,28 @@ function App() {
     setFirstNumber(null);
     setSecondNumber(null);
     operator.current = '';
-    setResult(0);
+    setResult('');
   }
 
   function changeNumberSign() {
     if (operator.current === "") {
       setFirstNumber((prevValue) => {
-        if (prevValue === null) return 0;
-        return prevValue * -1;
+        if (prevValue === null) return null;
+        return (Number(prevValue) * -1).toString();
       });
       /// update what it is shown
       setResult((prevValue) => {
-        if (prevValue === null) return 0;
-        return prevValue * -1;
+        if (prevValue === null) return '';
+        return (Number(prevValue) * -1).toString();
       })
     } else {
       setSecondNumber((prevValue) => {
-        if (prevValue === null) return 0;
-        return prevValue * -1;
+        if (prevValue === null) return null;
+        return (Number(prevValue) * -1).toString();
       })
       setResult((prevValue) => {
-        if (prevValue === null) return 0;
-        return prevValue * -1;
+        if (prevValue === null) return '';
+        return (Number(prevValue) * -1).toString();
       })
     }
   }
@@ -90,24 +90,50 @@ function App() {
   function getPercentage() {
     if (operator.current === "") {
       setFirstNumber((prevValue) => {
-        if (prevValue === null) return 0;
-        return prevValue / 100;
+        if (prevValue === null) return null;
+        return (Number(prevValue) / 100).toString();
       });
       /// update what it is shown
       setResult((prevValue) => {
-        if (prevValue === null) return 0;
-        return prevValue / 100;
+        if (prevValue === null) return '';
+        return (Number(prevValue) / 100).toString();
       })
     } else {
       setSecondNumber((prevValue) => {
-        if (prevValue === null) return 0;
-        return prevValue / 100;
+        if (prevValue === null) return null;
+        return (Number(prevValue) / 100).toString();
       })
       setResult((prevValue) => {
-        if (prevValue === null) return 0;
-        return prevValue / 100;
+        if (prevValue === null) return '';
+        return (Number(prevValue) / 100).toString();
       })
     }
+  }
+  function addDecimalPoint() {
+    if (firstNumber === null) {
+      setFirstNumber('0.');
+      setResult("0.");
+      return;
+    }
+    if (operator.current === "") {
+      if (firstNumber.includes('.')) return;
+      setFirstNumber(prev => prev + '.');
+      setResult(prev => prev + '.');
+      return;
+    } else {
+      if (secondNumber === null) {
+        setSecondNumber('0.');
+        setResult("0.");
+        return;
+      } else {
+        if (secondNumber.includes('.')) return;
+        setSecondNumber(prev => prev + '.');
+        setResult(prev => prev + '.');
+        return;
+      }
+    }
+
+
   }
 
   function performOperations() {
@@ -124,7 +150,8 @@ function App() {
       return;
     }
     if (currentValue === '.') {
-
+      addDecimalPoint();
+      return;
     }
 
     if (operator.current === "") {
@@ -162,11 +189,9 @@ function App() {
   return (
     <>
       <div className='bg-amber-300 max-w-md min-w-80 max-h-full grid grid-cols-4 grid-rows-11'>
-        <Header result={result} />
+        <Header result={result == "" ? 0 : result} />
         <Keys setCurrentValue={setCurrentValue} />
       </div>
     </>
   )
 }
-
-export default App
