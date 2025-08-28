@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+
+body{
+  @apply w-screen h-screen flex justify-center mt-32 bg-gray-100
+}
+#root{
+  @apply min-w-[600px]
+}
